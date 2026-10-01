@@ -37,12 +37,12 @@ h1{font:700 clamp(2rem,5.2vw,3.4rem)/1.03 var(--font-display),system-ui,sans-ser
 .seg button{padding:5px 11px;border-radius:99px;color:var(--muted);white-space:nowrap;transition:background .2s,color .2s}
 .seg button[aria-pressed=true]{background:var(--bub);color:var(--ink);box-shadow:0 1px 6px rgba(0,0,0,.12)}
 .orbwrap{display:flex;flex-direction:column;align-items:center;gap:22px;width:100%}
-.orb{position:relative;width:min(58vw,280px);aspect-ratio:1;transition:transform .6s cubic-bezier(.2,.8,.2,1),filter .6s}
-.core,.gloss,.ring,.spin{position:absolute;inset:0;border-radius:50%}
+.orb{position:relative;width:min(58vw,26vh,300px);aspect-ratio:3/4;transition:transform .6s cubic-bezier(.2,.8,.2,1),filter .6s}
+.core,.gloss,.ring,.spin{position:absolute;left:0;top:50%;width:100%;aspect-ratio:1;margin-top:-50%;border-radius:50%}
 .core{background:conic-gradient(from 0deg,var(--a),var(--b),var(--spark),var(--a));box-shadow:0 0 90px -8px var(--a),inset 0 0 40px rgba(255,255,255,.25);animation:spin 10s linear infinite,breathe 5s ease-in-out infinite}
 .gloss{background:radial-gradient(circle at 32% 26%,rgba(255,255,255,.75),transparent 42%);mix-blend-mode:soft-light}
 .ring{border:1.5px solid var(--a);opacity:0}
-.spin{inset:-16px;border:2px dashed var(--a);opacity:0;animation:spin 3s linear infinite}
+.spin{left:-16px;top:50%;width:calc(100% + 32px);margin-top:calc(-50% - 16px);border:2px dashed var(--a);opacity:0;animation:spin 3s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes breathe{50%{scale:1.05}}
 @keyframes morph{0%,100%{border-radius:50%}33%{border-radius:45% 55% 52% 48%/53% 45% 55% 47%}66%{border-radius:54% 46% 45% 55%/46% 56% 44% 54%}}
@@ -58,7 +58,7 @@ h1{font:700 clamp(2rem,5.2vw,3.4rem)/1.03 var(--font-display),system-ui,sans-ser
 .stage[data-state=speaking] .core{animation:spin 5s linear infinite,morph 2.6s ease-in-out infinite;border-radius:50%}
 .stage[data-state=speaking] .ring{border-color:var(--spark);animation-duration:1.9s}
 .stage[data-state=thinking] .core{animation-duration:3s,1.6s}
-.avatar{position:absolute;inset:6%;width:88%;height:88%;border-radius:50%;box-shadow:0 0 0 3px color-mix(in srgb,var(--bub) 80%,transparent)}
+.avatar{position:absolute;left:6%;top:50%;width:88%;margin-top:-44%;aspect-ratio:1;border-radius:50%;box-shadow:0 0 0 3px color-mix(in srgb,var(--bub) 80%,transparent)}
 #head,.eyes,.pupils,.talk{transform-box:fill-box;transform-origin:50% 100%}
 #head{animation:sway 6s ease-in-out infinite}
 .eyes{transform-origin:50% 50%;animation:blink 4.6s infinite}
@@ -129,7 +129,7 @@ body{overflow:hidden;height:100dvh}
 .app{display:block}
 .top,.intro{position:relative;z-index:5}
 .stage{position:fixed;inset:0;z-index:1;height:100dvh!important;min-height:0;border:0;border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;justify-content:center;padding:92px 16px 110px;background:radial-gradient(circle at 50% 46%,color-mix(in srgb,var(--a) 24%,transparent),transparent 58%)}
-.orb{width:min(70vw,44vh,400px)}
+.orb{width:min(70vw,28vh,360px)}
 .orbwrap{gap:18px}
 .seg{top:calc(76px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);background:var(--panel);border:1px solid var(--line);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
 .intro{position:fixed;left:28px;bottom:26px;max-width:320px;padding:0;z-index:3;display:none}
@@ -145,7 +145,8 @@ body{overflow:hidden;height:100dvh}
 .chatbtn{display:grid}
 .chat{left:10px;right:10px;width:auto;top:auto;bottom:calc(82px + env(safe-area-inset-bottom,0px));height:min(52dvh,460px)!important;transform:translateY(24px) scale(.97);opacity:0;pointer-events:none}
 .chat[data-open=true]{transform:none;opacity:1;pointer-events:auto}
-.orb{width:min(62vw,36vh,300px)}
+.orb{width:min(93vw,34dvh,470px)}
+ .caption{min-height:2.4em}
 }
 
 /* header: full width glass bar with the call-state switch */
@@ -178,7 +179,7 @@ textarea{font-size:16px}
 }
 @media(max-height:520px){
 .stage{padding:78px 16px 78px}
-.orb{width:min(40vh,200px)}
+.orb{width:min(34vh,240px)}
 .wave{display:none}.orbwrap{gap:8px}
 .caption{min-height:0;font-size:.9rem}
 .dock{bottom:calc(12px + env(safe-area-inset-bottom,0px))}
@@ -189,13 +190,13 @@ html[data-chat=true] .stage{padding-right:calc(min(48vw,360px) + 28px)}
 }
 @media(max-width:919px) and (orientation:portrait){
 html[data-chat=true] .stage{justify-content:flex-start;padding-top:80px}
-html[data-chat=true] .orb{width:clamp(84px,calc(50dvh - 170px),180px)}
+html[data-chat=true] .orb{width:clamp(84px,calc(50dvh - 240px),220px)}
 html[data-chat=true] .wave,html[data-chat=true] .caption{display:none}
 }
 .call{white-space:nowrap}
 
 /* live video + settings dialog */
-.pvideo{position:absolute;inset:6%;width:88%;height:88%;border-radius:50%;object-fit:cover;object-position:50% 25%;opacity:0;transition:opacity .6s;background:#000}
+.pvideo{position:absolute;inset:0;width:100%;height:100%;border-radius:clamp(14px,7%,34px);object-fit:cover;object-position:50% 22%;opacity:0;transition:opacity .6s;background:#000;box-shadow:0 26px 60px -30px rgba(20,10,80,.65)}
 .stage[data-live=true] .pvideo{opacity:1}
 .stage[data-live=true] .avatar{opacity:0;transition:opacity .6s}
 .call{white-space:nowrap}
